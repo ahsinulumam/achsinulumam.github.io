@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF GENERATOR</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+/* Police d'écriture */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    
+}
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    width:100%;
+    background-color: #fff;
+}
+#text {
+    width: 90%;
+    height: 80%;
+    resize: none;
+    padding: 20px;
+    outline: 0;
+    margin-bottom: 25px;
+    border: 0;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+}
+button {
+    padding: 5px 25px;
+    border-radius: 6px;
+    border: 0;
+    cursor: pointer;
+    margin-top:-65px;
+    margin-left:150px;
+}
+    </style>
+</head>
+<body>
+    <textarea id="text" placeholder="Tulis taks"></textarea>
+    <button onclick="generatePDF()">Download PDF</button>
+
+    <script>
+        function generatePDF(){
+            //nom du fichier | file name
+            var nom_fichier = prompt("Nom du fichier PDF :");
+            //generer le pdf
+            var element = document.getElementById('text').value;
+            var opt = {
+                    margin:  0.5,
+                    filename:     `${nom_fichier}.pdf`,
+                    image:        { type: 'jpeg', quality: 1 },
+                    html2canvas:  { scale: 2 },
+                    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                };
+            if(nom_fichier != null){
+                html2pdf().set(opt).from(element).save()
+            }else {
+                alert("Veuillez choisir un nom ")
+            }
+        }
+    </script>
+</body>
+</html>
